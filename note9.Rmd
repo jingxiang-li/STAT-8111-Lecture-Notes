@@ -1,0 +1,93 @@
+---
+title: "STAT 8111 LECTURE NOTE 9"
+author: "Jingxiang Li"
+date: "09/23/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## Sufficient Statistic
+
+$X \rightarrow (\mathscr{X}, \mathscr{B})$, $P = \{P_{\theta}^{X}:~\theta \in \Theta\}$, $t(x)$ is a real value or vector value function of x.
+
+**Def.** t is sufficient for $\theta \in \Theta$, if the conditional distribution of $X$ given $T = t$ is independent of $\theta$. Except perhaps for a set of $t \in A$, for which $P_{\theta}^{x}(t \in A) = 0$ for all $A$.
+
+All the information about \theta in $x$ contained in $t$.
+
+Suppose $P$ is dominated by a $\sigma$ finite measure $\mu$. 
+$$P_{\theta}^{X}(\mathscr{B}) = \int_{\mathscr{B}}{f_{\theta}(x)d\mu}$$
+
+**Theorem.** Factorization theorem
+
+$f(x)$ is sufficient, $\theta \in \Theta$, $\Leftrightarrow$, $f_{\theta}(x) = g_{\theta}(t(x))h(x)~~~ a.e.\mu$
+
+**Eg.** $X = (X_{1},\dots,X_{m}),~ i.i.d.~~\mathrm{Bernoulli}(\theta)$.
+
+$f_{\theta}(x) = \theta^{\sum{x_{i}}}(a - \theta)^{m - \sum{x_{i}}}$, and thus $\sum{x_{i}}$ is  sufficient.
+
+## Exponential Family of Distribution
+
+$x$ is a real value, if $$f_{\theta}(x) = c(\theta)h(x)e^{\sum_{i = 1}^{k}{\pi_{i}(\theta)t_{i}(x)}}$$ 
+Then $x$ belongs to exponential family.
+
+*Discrete Case:*
+$$\frac{1}{c(\theta)} = \sum_{X}{h(x)e^{\sum_{i = 1}^{k}{\pi_{i}(\theta)t_{i}(x)}}}$$
+
+*Continuous Case:*
+$$\frac{1}{c(\theta)} = \int_{X}{h(x)e^{\sum_{i = 1}^{k}{\pi_{i}(\theta)t_{i}(x)}}dx}$$
+
+So that $c(\theta)$ is determined by $h(x)$, $\pi_{i}(\theta)$ and $t_{i}(x)$
+
+**Eg.**
+
+$X \sim \mathrm{Bernoulli}(\theta)$
+$$f_{\theta}(x) = \theta^{x}(1 - \theta)^{(1 - x)} = (1 - \theta)(\frac{\theta}{1 - \theta})^x = (1 - \theta)e^{x(ln(\theta) - ln(1-\theta))}$$
+
+**Eg.**
+
+$X \sin N(\mu, \sigma^{2})$, $\theta = (\mu, \sigma^{2})$, 
+
+$$\begin{array}{lll}
+f_{\theta}(x) &=& \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(x - \mu)^2}{\sigma^2}}\\
+&=& \frac{1}{\sqrt{2\pi\sigma^2}} \cdot e^{-\frac{\mu^2}{\sigma^{2}}} \cdot e^{-\frac{x^2}{2\sigma^{2}} + \frac{\mu x}{\sigma^2}}
+\end{array}$$
+
+$\pi_{1}(\theta) = -\frac{1}{2\sigma^{2}}$, $\pi_{2}(\theta) = \frac{\mu}{\sigma^{2}}$; $t_{1}(x) = x^2$, $t_{2}(x) = x$.
+
+$\theta = (\theta_{1}, \theta_{2})$, $\theta_{1} = -\frac{1}{2\sigma^{2}}$, $\theta_{2} = \frac{\mu}{\sigma^{2}}$, 
+
+$c_{\theta} = \frac{1}{\sqrt{\pi(-\frac{1}{\theta_{1}})}}e^{\frac{1}{4}\frac{\theta_{2}^2}{\theta_{1}}}$, 
+
+$\pi_{1}(\theta) = \theta_{1}$, $\pi_{2}(\theta) = \theta_{2}$
+
+**Eg.**
+
+$X_{1}, \dots, X_{m}$ i.i.d. Exponential Family
+$$f_{\theta}(x_{1}, \dots, x_{m}) = [c(\theta)]^{m} \prod_{i=1}^{m}{h(x_{i})}e^{\sum_{i = 1}^{k}{\pi_{i}(\theta)(\sum_{j = 1}^{m}{t_{i}(x_{j})})}}
+$$
+
+$$T = (T_{1},\dots,T_{k}) = (\sum_{j = 1}^{m}{t_{1}(x_{j})}), \dots, \sum_{j = 1}^{m}{t_{k}(x_{j})}))$$
+
+Note that $T$ is sufficient, and $T$ also belongs to Exponential Family.
+
+*Proof.* in discrete case
+
+$$\begin{array}{lll}
+f_{\theta}^{*}(t) &=& P_{\theta}(T_{1} = t_{1},\dots,T_{k} = t_{k})\\
+&=& \sum_{x_{1},\dots,x_{m}~s.t.~\sum_{j = 1}^{m}{t_{k}(x_{j})} = t_{i}, \forall i}{c(\theta)^{m}\prod_{i = 1}^{m}{h(x_{i})}e^{\sum_{i = 1}^{k}{\pi_{i}(\theta)(\sum_{j = 1}^{m}{t_{i}(x_{j})})}}}
+\end{array}
+$$
+
+## Natural Parameter Space
+in $f_{\theta}(x) = c(\theta)h(x)e^{\sum_{i = 1}^{k}{\pi_{i}(\theta)t_{i}(x)}}$, let $\pi_{i} = \pi_{i}(\theta)$, then we have
+$$f_{\theta}(x) = c(\theta)h(x)e^{\sum_{i = 1}^{k}{\pi_{i}t_{i}(x)}}$$
+Then $\pi = (\pi_{1},\dots,\pi_{k})$ is the natural parameter of exponential family distribution. (Recall the Normal Distribution Example)
+
+$\pi = (\pi_{1},\dots,\pi_{k}) \in \Pi \in \mathbb{R}^{k}$, where
+$$\Pi = \{(\pi_{1},\dots,\pi_{k}) =: \int_{X}{f_{\theta}(x)dx} < \infty\}$$
+
+**Lemma.** $\Pi$ is convex.
+
+**Theorem.** $X$ and $Y$ are positive random variables.
+$$EX^{p}Y^{1-p} \leq E(X)^{P}E(Y)^{1-p},~~ 0 \leq p \leq 1$$

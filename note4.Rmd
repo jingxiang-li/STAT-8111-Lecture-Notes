@@ -1,0 +1,103 @@
+---
+title: "STAT 8111 LECTURE NOTE 4"
+author: "Jingxiang Li"
+date: "09/08/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## The Bayes Risk of $\delta$ agianst $\pi$
+
+**Def.** $\pi(\theta)$ is a probability distribution in $\Theta$
+
+**Def.** $\Pi(\delta, \pi) = \int_{\Theta}{R(\theta, \delta)\pi(\theta)d\theta}$
+
+**Def.** $\delta^{*}$ is the best Bayes Decision Function against $\pi$ if $$\Pi(\delta^{*}, \pi) = \inf_{\delta \in \bar{D}}\Pi(\delta, \pi)$$ 
+
+**e.g.** We buy Strawberry, $\Theta = \{A, NA\}$, where $A$ means the Strawberry is acceptable, and $NA$ means unacceptable; $D = \{d_{0}, d_{1}, d_{2}\}$, where $d_{i}$ means we buy $i$ quart of strawberry. We have Loss Function L as follows:
+
+$d$         $L(A, d_{i})$   $L(NA, d_{i})$
+---         ------------    -------------
+$d_{0}$     $1/2$           $1/2$
+$d_{1}$     $1/4$           $2/3$
+$d_{2}$     $0$             $1$
+
+Let $\Pi = $ Probability of $NA$
+
+Notice that this is a *No Data Problem*, whenever you think about Bayes, you should first think about the *No Data Problem*.
+
+$\Pi(d_{0}, \pi) = \frac{1}{2}\pi + \frac{1}{2}(1 - \pi) = \frac{1}{2}$
+
+$\Pi(d_{1}, \pi) = \frac{2}{3}\pi + \frac{1}{4}(1 - \pi) = \frac{1}{4} + \frac{5}{12}\pi$
+
+$\Pi(d_{2}, \pi) = \pi$
+
+```{r, echo=FALSE}
+x = seq(0, 1, by = 0.1)
+y_1 = rep(0.5, length(x))
+y_2 = 0.25 + 5 / 12 * x
+y_3 = x
+
+plot (x, y_1, ylim = c(0, 1), xlim = c(0, 1), 
+     xlab = expression(pi), ylab = expression(Pi), 
+     type = "l", col = "blue", lwd = 2)
+lines (x, y_2, col = "red", lwd = 2)
+lines (x, y_3, col = "green", lwd = 2)
+text (x = 0.7, y = 0.85, labels = expression(d2))
+text (x= 0.8, y = 0.7, labels = expression(d1))
+text (x= 0.9, y = 0.4, labels = expression(d0))
+```
+
+Let X equals to your feeling when you taste a strawberry
+
+$\begin{aligned}
+P_{NA}(X = x) = & \frac{7}{12},~~x=1~~~~\\
+                & \frac{4}{12},~~x=2~~~~\\
+                & \frac{1}{12},~~x=3~~~~
+\end{aligned}$
+$\begin{aligned}
+P_{A}(X = x) = & \frac{1}{12},~~x=1\\
+                & \frac{3}{12},~~x=2\\
+                & \frac{8}{12},~~x=3
+\end{aligned}$
+
+for each $\delta$, we have 
+$$\begin{aligned}
+R(A, \delta) & = \sum_{x}L(A, \delta(x))P_{A}(X = x)\\
+R(NA, \delta) & = \sum_{x}L(NA, \delta(x))P_{NA}(X = x)
+\end{aligned}
+$$
+
+$$\delta \rightarrow (R(A, \delta), R(NA, \delta))$$
+$$\Pi(\delta, \pi) = (1 - \pi)R(A, \delta) + \pi R(NA, \delta)$$
+
+We map $\delta$ to points in a 2-dimensional space, and we try to find $\delta$ with minimum Bayes Risk. if $\delta$ is randomized, then the set of $\delta$ is a convex set, and thus it's a simple Linear Programming in this strawberry problem.
+
+```{r, echo=FALSE}
+x = c(0.5,0.6,0.5,0.3,0.8, 0.4, 0.6)
+y = c(0.4,0.2,0.6,0.2,0.5, 0.5, 0.8)
+plot(x,y, xlim = c(0,1), ylim = c(0,1), pch = 4, xlab = expression(R(A, delta)), ylab = expression(R(N, delta)))
+abline(0.8, -0.7, lwd = 2, col = "red")
+abline(0.4, -0.7, lwd = 2, col = "red")
+arrows(0.2, -0.7 * 0.2 + 0.8, 0.2, -0.7 * 0.2 + 0.4, lty = 2, col = "blue")
+```
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Now we have $X$, $D$, $L(\theta, d)$, $\bar{D}$, $\bar{\bar{D}}$, $\Theta = \{\theta_{1},...,\theta_{k}\}$, $0 \leq R(\theta, m) < \infty, \forall m \in \bar{\bar{D}}$
+
+**Def.** $S = \{(y_{1},...,y_{k}): y_{j} = R(\theta_{j}, m)$ for $j = 1,...,k,$ for some $m \in \bar{\bar{D}}\}$, We call $S$ a *Risk Set*
+
+**Lemma** $S$ is a convex subset of $\mathbb{R}^{k}$
+
+**Proof** Suppose $y \in S$ and $y' \in S$, $y$ comes from $m \in \bar{\bar{D}}$, $y'$ comes from $m' \in \bar{\bar{D}}$, and for $\alpha \in [0, 1]$, $\alpha m + (1 - \alpha)m' \in \bar{\bar{D}}$
+
+$S_{\Delta} = \{ (y_{1},...,y_{k}): y_{j} = R(\theta_{j}, \delta)$ for $j = 1,...,k,$ for some $\delta \in \bar{D}\}$
+
+$S$ is convex and is the smallest convex set which contains $S_{\Delta}$, Since we assume that two types of Randomization is the same.
+
+Let $x = (x_{1}, ..., x_{k}) \in \mathbb{R}^{k}$
+
+**Def** the lower Quantant of $x$ denoted by $Q_{x}$ is defined at the set $Q_{x} = \{ y; y_{j} \leq x_{j}, \forall j  \}$

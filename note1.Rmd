@@ -1,0 +1,47 @@
+---
+title: "STAT 8111 LECTURE NOTE 1"
+author: "Jingxiang Li"
+date: "09/03/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## Textbooks and Supplementary Materials
+
+* James Berger. Statistical Decision Theory and Bayesian Analysis
+* Fel. Mathematical Statistics and decision theory approach
+* Erich L. Lehmann. Testing Statistical Hypothesis, 2nd
+* Erich L. Lehmann. Theory of Point Estimation
+* José M. Bernardo. Bayesian Theory
+* Mark J. Schervish. Theory of Statistics
+* Debabrata Basu.
+
+All the above are not required.
+
+## Lecture note
+
+$\theta$ is an unknown parameter and $\theta \in \Theta$, $D$ is the set of possible decisions. 
+
+Suppose for any $\theta \in \Theta$, $d_{1}$ and $d_{2} \in D$, one (and the only one) of the following is satisfied
+
+1) $d_{1}$ is preferred to $d_{2}$ when $\theta$ is true
+2) $d_{2}$ is preferred to $d_{1}$ when $\theta$ is true
+3) neither preferred
+
+We say that $d \in D$ is optimal relative to $\theta$ if there is no member of $D$ preferred to $d$ when $\theta$ is true.
+
+For $d \in D$, let $\Lambda_{d} = \{\theta, d$ is optimal relative to $\theta\}$. We hope that $\Lambda_{d} \neq \emptyset$. If we select $d$, then we are ”adding“ $\theta \in \Lambda_{d}$
+
+
+We have Parameter $\theta \in \Theta$, Decision $d \in D$ and Random Variable $X: P = \{P_{\theta}^{X}: \theta \in \Theta\}$
+
+Define $\delta: X \rightarrow D$, $\delta$ is called Decision Function. If $X = x$, then we make Decision $\delta(x)$
+
+To make a decision a Loss Function is in need. define $L(\theta, d) =$ Loss incurred when we make decision $d$ when $\theta$ is true. $d_{1}$ is preferred to $d_{2}$ when $\theta$ is true if $L(\theta, d_{1}) < L(\theta, d_{2})$.
+
+We will consider $L(\theta, d)$ as given, but in practice it can be hard to impossible to determine.
+
+To make decision based on $x$ and $\delta$, we have Random Loss Function $L(\theta, \delta(x))$, which means Loss of $X=x$ is observed, $\theta$ is true and $\delta$ is the decision Function.
+
+To make life easy, we look at $$R(\theta, \delta) = E_{\theta}(L(\theta, \delta(X))) \geq 0$$. $R(\theta, \delta)$ is called Risk Function of $\delta$, $R: \Theta \rightarrow [0, +\infty]$, and can be interpreted as Expected Loss.

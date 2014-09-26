@@ -1,0 +1,52 @@
+---
+title: "STAT 8111 LECTURE NOTE 5"
+author: "Jingxiang Li"
+date: "09/12/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## The Proof of Two Types of Randomization are Equivalent##
+
+Dvoretzky, Aryeh, Abraham Wald, and Jacob Wolfowitz. ["Elimination of randomization in certain statistical decision procedures and zero-sum two-person games."](http://www.jstor.org/stable/2236698) The Annals of Mathematical Statistics (1951): 1-21.
+
+Girshick, M. A., and D. Blackwell. ["Theory of games and statistical decisions."](http://books.google.com/books?id=6SMkAwAAQBAJ&printsec=frontcover&dq=blackwell+theory+of+games+and+statistical+decisions&hl=en&sa=X&ei=tY8TVJinHYn98AGz-oDoCA&ved=0CCoQ6AEwAA#v=onepage&q=blackwell%20theory%20of%20games%20and%20statistical%20decisions&f=false) Me Graw Hill (197o) (1954).
+
+## Bayes Decision Rule
+
+$\theta \in \Theta$, $m \in \bar{\bar{D}}$, $\tilde{R}_{m} = (R_{\theta_{1}, m}, R_{\theta_{2}, m},\dots,R_{\theta_{k}, m})$, $Q_{x}=\{y: y_{j} \leq x_{j}, \forall j \in (1,2,\dots,k)\}$
+
+$S = \{\tilde{R}_{m}: m \in \bar{\bar{D}}\}$, Assume that S is closed.
+
+**Def.** A point $x$ is said to be a *Lower Boundary Point* of $S$ if $Q(x) \cap \bar{S} = \{x\}$, $\bar{S}$ is the closure of $S$
+
+$\lambda(S) = $ Set of Lower boundary Points
+
+**Theorem.** If $S$ is closed and $S \subseteq \{x: x_{i} \geq 0, i = 1,2,\dots,k\}$, then $\lambda(S)$ is not empty.
+
+**Proof.** Let $\xi = (\xi_{i},\dots,\xi_{k})$, where $\xi_{k}>0$, $C_{0} = \inf\{\xi^{'}x, \forall x \in S \}$. Since $S$ is closed, if $\exists  x_{0} \in S$, s.t. $\xi^{'}x_{0} = C_{0}$, then $Q_{x_{0}} \cap \bar{S} = \{x_{0}\}$. If not, there exists $z \in Q_{x_{0}} \cap \bar{S}$, where $0 \leq z_{i} \leq x_{i}$ for all $i$ and strict for at least one, and $\xi^{'}z < \xi^{'}x_{0}$.
+
+**Theorem.** $m$ is *Admissible* $\iff$ $\tilde{R}_{m} \in \lambda(S)$
+
+**Proof.** Let $x = \tilde{R}_{m}$, then $m$ is Admissible $\iff \{x\} = Q_{x} \cap \bar{S} \iff \{x\} \in \lambda(S)$
+
+**Def.** $C$ is the *Minimal Complete Class* if it is complete and it is contained in every other complete classes.
+
+**Theorem.** Let $A = $ class of Admissible Decision Rules (May be empty), then if a Minimal Complete Class exists, say $C$, then $C = A$
+
+**Proof** First $A \subset C$. If not, $\exists m \in A$ but $m \notin C$, but by the completeness of $C$, $m$ can be beaten, and thus $A$ is not admissible. Contradiction; Then $C \subset A$. Suppose not, $\exists m_{0} \in C$ but $m_{0} \notin A$, Then you can always find $m^{*} \in C$ which can beat $m_{0}$, and thus $C - \{m_{0}\}$ is complete, C is not minimal. Contradiction. 
+
+-----------------------------------------------
+
+$\Pi(m, G) = \int_{\Theta}{R(\theta, m)dG(\theta)}$
+
+A Bayes Rule is defined that $\Pi(m_{0}, G) = \inf_{m \in \bar{\bar{D}}}{\Pi(m, G)}$
+
+$\Theta = \{\theta_{1},\dots,\theta_{k}\}$,
+Let $\lambda = \{\lambda_{1},\dots,\lambda_{k}\}$ be the Prior Distribution of $\Theta$, Same as $G(\cdot)$, and thus $\Pi(m, G) = \sum_{i = 1}^{k}{R(\theta_{i}, m)\lambda_{i}}$
+
+**Theorem** If $\forall i, \lambda_{i} > 0$ then the Bayes Rule against $\lambda$ is Admissible.
+
+**Proof** Let $m$ be the Bayes Rule against $\lambda$, if not admissible, $\exists m^{'}$ s.t. $R(\theta, m^{'}) \leq R(\theta, m), \forall \theta \in \Theta$, and strict as least one. Then $\sum_{i=1}^{k}{\lambda_{i}R(\theta_{i}, m^{'})} \leq \sum_{i=1}^{k}{\lambda_{i}R(\theta_{i}, m)}$, which means $m$ is not a Bayes Rule, Contradiction.
+

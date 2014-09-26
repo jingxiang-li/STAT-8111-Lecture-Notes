@@ -1,0 +1,100 @@
+---
+title: "STAT 8111 LECTURE NOTE 3"
+author: "Jingxiang Li"
+date: "09/08/2014"
+output:
+  html_document:
+    theme: readable
+---
+## Review
+
+$\theta \in \Theta$, $d \in D$, $X:{P_{\theta}, \theta \in \Theta}$, $\delta: X \rightarrow D$, $L(\theta, d)$, $R(\theta, \delta) = E(L(\theta, \delta(X)))$
+
+## Randomization
+
+For $X = x$, Let $m_{x}$ be a probability measure on $D$, Then one decision is picked by selecting $d \in D$ using $m_{x}$.
+
+$m:~X \rightarrow$ Space of probability measures on $D$
+
+This is called *Behaviour Decision Rule*, which means
+
+1. You have a class of probability measure function $m$
+2. Observe $X = x$
+3. Get a specific probability measure $m_{x}()$ on $D$
+4. Randomly pick $d \in D$ based on $m_{x}(d)$
+
+Let $Y_{x}$ denote the Random Decision you picked given the $X = x$,$$E(L(\theta, Y_{x})) = \int_{D}{L(\theta,d)dm_{x}(d)}$$ Which equals to expected Loss given the $X = x$ observed, and $\theta$ is the truth of nature and m_{x} is used.
+
+$$R(\theta, m) = \int_{X}\int_{D}{L(\theta, d)dm_{x}(d)dP_{\theta}^{x}}$$
+
+Thus in this way, the risk function is determined by $\theta$ and the probability measure function $m$.
+
+There is a Second type of Randomization. Randomly pick two decision functions $\delta_{s}$, say $\delta_{1}$ and $\delta_{2}$, it's called a *Randomized Decision rule*. But kind of equivalent to *Behaviour Decision Rule*.
+
+Def. $\bar{D}=$ Class of all non-Randomized Decision rules
+
+Def. $\bar{\bar{D}}=$ Class of all of Decision rules
+
+Def. $D$ is convex, if $\forall d_{1}, d_{2} \in D$  
+
+$$\alpha d_{1}+(1-\alpha)d_{2} \in D, \forall \alpha, 0 \leq \alpha\leq 1$$
+
+Def. $\phi$ be defined in D is convex (or strictly convex) if
+
+$$\phi(\alpha d_{1}+(1-\alpha)d_{2}) \leq_{(<)} \alpha\phi(d_{1}) + (1 - \alpha)\phi(d_{2})$$
+
+$\phi(E(X)) \leq E(\phi(X))$, $(E(X))^{2} \leq E(X^{2})$,
+
+Q: Proof $\bar{D}$ is essentially complete on $\bar{\bar{D}}$.
+
+Suppose $D$ is convex and $L(\theta, \cdot)$ is convex for each $\theta$. Suppose m is a behavior decision measure and $\delta$ is defined by $$\delta_{x} = \int_{D}d\cdot dm_{x}(d)$$ proof that $R(\theta, \delta) \leq R(\theta, m) \forall \theta \in \Theta$ 
+
+**Proof:** 
+$$\begin{aligned}
+R(\theta, m) & = \int_{X}\int_{D}{L(\theta, d)dm_{x}(d)dP_{\theta}(x)}\\
+& \geq \int_{X}L(\theta, \delta_{x})dP_{\theta}(x)\\
+& = R(\theta, \delta)~\Box
+\end{aligned}$$
+
+Def: $C \subseteq \bar{\bar{D}}$ is *(essentially) complete* if given any $m \in \bar{\bar{D}}$, $\exists m' \in C$ such that $m'$ is (at least as good as) better than $m$.
+
+Def: $m$ is *admissable* if there is no such $m' \in \bar{\bar{D}}$ which is better than $m$
+
+-----------------------
+-----------------------
+
+$D \subseteq \mathbb{R}$, $D$ is convex, $X:~{P_{\theta}, \theta \in \Theta}$, $L(\theta, \cdot)$ is strictly convex for each $\theta$.
+
+**Lemma:**  Let $\delta_{0}$ and $\delta_{1}$ be two decision functions, such that $$R(\theta, \delta_{0}) = R(\theta, \delta_{1}), \forall \theta \in \Theta$$ if for some $\theta$, $P_{\theta}(\delta_{0}(x) = \delta_{1}(x)) < 1$, then $\delta_{0}$ (and hence $\delta_{1}$) is *inadmissible*. 
+
+**Proof:** Let $\delta^{*}(x) = \frac{\delta_{0}(x) + \delta_{1}(x)}{2}$, if $\delta_{0}(x) \neq \delta_{1}(x)$ for some $x$, then due to the convexity of L, we have $$L(\theta, \delta^{*}(x)) < \frac{1}{2}L(\theta, \delta_{0}(x)) + \frac{1}{2}L(\theta, \delta_{1}(x))$$
+
+Let $\theta^{*}$ make $P_{\theta}(\delta_{0}(x) = \delta_{1}(x)) < 1$ true, then $$EL(\theta^{*}, \delta^{*}(x)) < \frac{1}{2}EL(\theta^{*}, \delta_{0}(x)) + \frac{1}{2}EL(\theta^{*}, \delta_{1}(x))$$
+$$R(\theta^{*}, \delta^{*}) < \frac{1}{2}R(\theta^{*}, \delta_{0}) + \frac{1}{2}R(\theta^{*}, \delta_{1})$$
+and thus $\delta^{*}$ beats $\delta_{0}$ and $\delta{1}$
+
+Def. $\delta \in \bar{D}$ is unbiased for estimating some $\gamma(\theta)$ if $E(\delta(X)) = \gamma(\theta), \forall \theta \in \Theta$
+
+**Corollary** If $L(\theta, \cdot)$ is strictly convex, and $\delta$ is the best unbiased estimator, then $\delta$ is unique.
+
+---------------------------
+---------------------------
+Jensen's Inequality for Conditional Expectation
+
+$I$ is an interval in $\mathbb{R}$, $\phi$ is convex in $\mathbb{R}$, $H = \{h,$ a line of support of $\phi$ at a real point in $I\}$
+
+```{r, echo=FALSE}
+f = function(x){x ^ 2 + 3}
+x = seq(0, 1, by = 0.01)
+y = f(x)
+plot(x, y, type = 'l', lty = 1, lwd = 2, col = "blue")
+der = 2 * 0.5
+f_s = function(x){f(.5) + x - 0.5}
+y_s = f_s(x)
+lines(x, y_s, lty = 2, lwd = 2, col = "red")
+lines(x, y_s - 0.05, lty = 2, lwd = 2, col = "red")
+text(0.8, 3.4, "suppport")
+```
+
+For $x \in I$, $\phi(x) = \sup_{h \in H}h(x)$
+

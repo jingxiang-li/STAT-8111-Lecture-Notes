@@ -1,0 +1,58 @@
+---
+title: "STAT 8111 LECTURE NOTE 8"
+author: "Jingxiang Li"
+date: "09/19/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## Bayes Estimation for Gaussian Distribution
+
+$X = (X_{1}, \dots, X_{m}),~~i.i.d. \sim N(\theta, \sigma^2)$
+$$f(x|\theta) = (\frac{1}{\sqrt{2\pi \sigma^2}})^m e^{-\frac{\sum_{i = 1}^{m}{(x_{i} - \theta)^{2}}}{2\sigma^2}}$$
+
+###Case 1.  $\theta$ is unknown, $\sigma^{2}$ is known.
+
+$$g_{\mu, \tau}(\theta) = \frac{1}{\sqrt{2 \pi \tau^2}}e^{-\frac{(\theta - \mu)^2}{2\tau^{2}}}$$
+$$\sum{(x_{i} - \theta)^2} = \sum{(x_{i} - \bar{x})^2} + m(\theta - \bar{x})^2$$
+$$\begin{array}{lll}
+P(\theta | x) &\propto& e^{-\frac{1}{2} [\frac{m}{\sigma^2}(\theta - \bar{x})^2 + \frac{1}{\tau^2}(\theta - m)^2 ]}\\
+& \propto&  e^{-\frac{1}{2} \{(\theta - \frac{\tau^2\bar{x} + \frac{\sigma^2}{m}\mu}{\frac{\sigma^2}{m} + \tau^2})^2\} / \frac{\frac{\sigma^2}{m}\tau^2}{\frac{\sigma^2}{m} + \tau^2}} 
+\end{array}$$
+$P(\theta | x)$ is $$N(\frac{\tau^2\bar{x} + \frac{\sigma^2}{m}\mu}{\frac{\sigma^2}{m} + \tau^2}, \frac{\frac{\sigma^2}{m}\tau^2}{\frac{\sigma^2}{m} + \tau^2})$$
+
+The posterior mean is the linear combination of sample mean $\bar{x}$ and prior mean $\mu$. Notice that no matter what prior distribution you choose, the variance of posterior estimate will always be lower than prior's.
+
+###Case 1.  $\sigma^{2}$ is unknown, $\theta$ is known.
+
+Let $\Pi = \frac{1}{\sigma^2} = $ Precision.
+$$f(x|\Pi) = \Pi^{\frac{m}{2}} e^{\Pi \frac{\sum{(x_{i} - \theta)^2}}{2}}$$
+Nice conjugate prior is $Gamma(\alpha, \beta)$
+$$P(\theta|x) \propto \Pi^{\alpha + \frac{m}{2} - 1}e^{-\Pi(\beta + \frac{\sum{(x_{i} - \theta)^2}}{2})}$$
+$P(\theta | x)$ is $Gamma(\alpha + \frac{m}{2}, \beta + \frac{\sum{(x_{i} - \theta)^2}}{2})$
+
+###Case3. Both $\theta$ and $\sigma^{2}$ are unknown
+
+We need Prior joint distribution for $\theta$ and $\Pi$. First consider Prior Conditional Distribution of $\theta$ given $\Pi$
+
+$\theta|\Pi$ has a Normal Distribution with Mean $\mu$ and Precision $\lambda \Pi$
+
+Where $\mu \in (-\infty, \infty),~\lambda >0$ are fixed parameter.
+
+Prior Marginal Distribution of $\Pi$ is $Gamma(\alpha,~\beta )$
+
+$$f(x|\theta, \Pi) = \Pi^{\frac{1}{2}}e^{-\frac{\lambda n}{2}(\theta - \mu)^2}\Pi^{\alpha - 1}e^{-\beta \Pi}$$
+$$P(\theta, \Pi|x) = \Pi^{\frac{1}{2}}e^{-\frac{\Pi(m + \lambda)}{2}(\theta - \frac{m \bar{x} + \mu \lambda}{m + \lambda})^2} \cdot \Pi^{\frac{m}{2} + \alpha - 1}e^{-\Pi(\beta + \frac{\sum{(x_{i} - \bar{x})^2}}{2} + \frac{\lambda m (\bar{x} - \mu)^2}{2(\lambda + m)})}$$
+
+$P(\theta | \Pi, x)$ is Normal Distribution, $P(\Pi | x)$ is Gamma Distribution.
+
+##Bayes Estimation for Exponential Family
+
+$X = (X_{1},\dots,X_{m})$ i.i.d. $f(x|\theta) = Q(\theta)e^{\Phi(\theta)T(x)}$, where $\theta \in \Theta = (-\infty, +\infty)$. This is the one parameter exponential family of distributions.
+
+What is a nice Prior for Exponential Family.
+
+$$g_{\alpha, \beta}(\theta) = [Q(\theta)]^{\beta}e^{\alpha \Phi(\theta)}$$, where $\alpha,~\beta$ are chosen such that $$\int_{-\infty}^{\infty}{g_{\alpha, \beta}(\theta)d\theta} = 1$$
+Then,  
+$$P(\theta|x) \propto [Q(\theta)]^{\beta + m}e^{\Phi(\theta)(\alpha + \sum{T(x_{i})})}$$

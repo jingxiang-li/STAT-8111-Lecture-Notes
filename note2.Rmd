@@ -1,0 +1,70 @@
+---
+title: "STAT 8111 LECTURE NOTE 2"
+author: "Jingxiang Li"
+date: "09/05/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## Review
+
+* Unknown Parameter: $\theta \in \Theta$
+* Decision: $d \in D$
+* Loss Function: $L(\theta, d)$
+* Random Variable: $X: \{P_{\theta}^{X}, \theta \in \Theta\}$
+* Decision Function: $\delta: X \rightarrow D$
+* Risk Function: $R(\theta, \delta) = E_{\theta}^{X}[L(\theta, \delta(X))]$
+
+## Lecture note: Estimation
+
+We want to make a good guess for $\gamma(\theta)$, which is a real value function of $\theta$. There should be $\gamma(\theta) \subseteq D$.
+
+Assuming that following three arguments hold,
+
+1) Main aim is to get close to $\gamma(\theta)$, rather than getting it exactly right
+2) Symmetry of Loss Function
+3) No natural simple Loss Function
+
+Well assumed that 
+
+1) $L(\theta, d_{1}) \leq L(\theta, d_{2})$ if $d_{2}$ is further from $\gamma(\theta)$ compared with $d_{1}$
+2) Symmetry of Loss Function $L(\theta, d)$
+3) $L(\theta, d) \geq 0$
+4) $L(\theta, d) = 0$  if  $d = \gamma(\theta)$
+5) $L(\theta, d)$ is convex by d, $\forall \theta \in \Theta$
+
+So that
+$$L(\theta, d) = L(\theta, \gamma(\theta)) + \frac{\partial}{\partial d}L(\theta, d)|_{d = \gamma(\theta)} \cdot (d - \gamma(\theta)) + \frac{\partial ^ {2}}{\partial ^ {2} d}L(\theta, d)|_{d = \gamma(\theta)} \cdot \frac{(d - \gamma(\theta))^{2}}{2!} + \cdots$$
+
+From 4. we have $L(\theta, \gamma(\theta)) = 0$;
+
+From 2. and 5. we have $\frac{\partial}{\partial d}L(\theta, d)|_{d = \gamma(\theta)} = 0$;
+
+Thus $$L(\theta, d) \propto (d - \gamma(\theta)) ^ {2}$$
+
+------------------------------------------------------------
+
+Main problem: when is $\delta_{1}$ better than $\delta_{2}$
+
+**Def**: $\delta_{1}$ is *at least as good as* $\delta_{2}$ if $R(\theta, \delta_{1}) \leq R(\theta, \delta_{2}), \forall \theta \in \Theta$ 
+
+$\delta_{1}$ is better than $\delta_{2}$ if $\delta_{1}$ is *at least as good as* $\delta_{2}$, but $\delta_{2}$ is *not at least as good as* $\delta_{1}$.
+
+**Notice:** $R(\theta, \delta_{1}) \equiv R(\theta, \delta_{2}) \not> \delta_{1} = \delta_{2}$ 
+
+Let $\Delta$ be a class of Decision Function, $\delta^{*}$ is best among $\Delta$, IF $\delta^{*} \in \Delta$ and $\delta^{*}$ *at least as good as* $\forall \delta \in \Delta$.
+  
+*Usually such $\delta^{*}$ does not exist in the class of all situations.*
+
+**Eg.** 
+
+$X \sim Bernoulli(\theta)$, which means $P_{\theta}(X = 1) = \theta$, $P_{\theta}(X = 0) = 1 - \theta$, where $\theta \in \Theta = [0, 1]$
+
+The problem is to estimate $\gamma(\theta) = \theta$ use square Loss.
+
+$$R(\theta, \delta) = E_{\theta}[L(\theta, \delta(X))] = E_{\theta}(\delta(X) - \theta) ^ {2} = (\delta(0) - \theta) ^ {2}(1 - \theta) + (\delta(1) - \theta)^{2}\theta$$
+
+Assume there exists $\delta^{*}$ which is the best in the class of all estimators, We set $\delta_{c}(0) = \delta_{c}(1) = c$ as a constant estimator. So that
+
+$$(\delta^{*}(0) - \theta) ^ {2}(1 - \theta) + (\delta^{*}(1) - \theta)^{2}\theta \leq R(\theta, \delta_{c}) = (c - \theta) ^ {2}$$ when $\theta = c$, and thus $\delta^{*}$ is not the best decision function in all cases.   $\Box$
