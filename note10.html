@@ -61,6 +61,54 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="lecture-notes" class="section level2">
 <h2>Lecture Notes</h2>
+<p><span class="math">\(f_{\pi}(x) = c(\pi)h(x)e^{[\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}]}\)</span></p>
+<p><span class="math">\(\pi=(\pi_{1},\dots,\pi_{k}) \in \underline{\Pi}\)</span></p>
+<p><span class="math">\(\underline{\Pi} = \{(\pi_{1},\dots,\pi_{k})~ \frac{1}{c(\pi)} = \int{h(x)e^{[\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}]}du(x)} &lt; \infty \}\)</span></p>
+<p><strong>Lemma.</strong> <span class="math">\(\underline{\Pi}\)</span> is Convex</p>
+<p><strong>Proof.</strong></p>
+<p><span class="math">\(\pi = (\pi_{1},\dots,\pi_{k}) \in \underline{\Pi}\)</span></p>
+<p><span class="math">\(\pi' = (\pi_{1}',\dots,\pi_{k}') \in \underline{\Pi}\)</span></p>
+<p><span class="math">\(0 &lt; \alpha &lt; 1\)</span>,</p>
+<p>Question: <span class="math">\(\alpha\pi' + (1 - \alpha)\pi \in \underline{\Pi}\)</span></p>
+<p><span class="math">\[\int{h(x)e^{\sum_{i = 1}^{k}{(\alpha\pi_{i}' + (1 - \alpha)\pi_{i})t_{i}(x)}}du(x)}\]</span></p>
+<p><span class="math">\[\int{h(x)e^{\sum_{i = 1}^{k}{\alpha(\pi_{i}' - \pi_{i})t_{i}(x)}} e^{\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}}du(x)}\]</span></p>
+<p><span class="math">\[\frac{1}{c(\pi)}\cdot \int{\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}^{\alpha} \{ 1^{1-\alpha}c(\pi)h(x)e^{\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}}\}du(x)}\]</span></p>
+<p><span class="math">\[\frac{1}{c(\pi)}\cdot E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}^{\alpha} 1^{1-\alpha}\]</span></p>
+<p><span class="math">\[\leq \frac{1}{c(\pi)}\cdot \{E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}\}^{\alpha}\]</span></p>
+<p>Note that <span class="math">\(\{E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}\}\)</span> depends only on <span class="math">\(\pi'\)</span>. <span class="math">\(\square\)</span></p>
+<p><span class="math">\(\underline{\Pi}\)</span> is a convex subset of <span class="math">\(\mathbb{R}^k\)</span>. It’s effective dimension may be less than <span class="math">\(k\)</span>, so they may live in a hyperplane, suggesting that <span class="math">\(\sum_{i=1}^{k}{\beta_{i}\pi_{i}} = C\)</span></p>
+<p>In this case, we can eliminate a <span class="math">\(\pi_{i}\)</span>, so we can assume <span class="math">\(\underline{\Pi}\)</span> is an open convex subset of <span class="math">\(\mathbb{R}^{k}\)</span>.</p>
+</div>
+<div id="section" class="section level2">
+<h2>—————————————————————————</h2>
+<p><strong>Example of Non-Exponential Families</strong></p>
+<p><span class="math">\(X \sim \mathrm{Uniform}(0, \theta)\)</span></p>
+<p><span class="math">\(f_{\theta}(x) = \bigg\{ \begin{array}{ll} \frac{1}{\theta} &amp; for ~~ 0 &lt; x &lt; \theta\\ 0 &amp; otherwise \end{array}\)</span></p>
+</div>
+<div id="section-1" class="section level2">
+<h2>—————————————————————————</h2>
+<p><span class="math">\(f_{\pi}(x) = c(\pi)e^{\pi t(x)}h(x)\)</span></p>
+<p><span class="math">\(\frac{1}{c(\pi)} = \int_{-\infty}^{\infty}{e^{\pi t(x)}h(x)du(x)}\)</span></p>
+<p><span class="math">\(-\frac{c'(\pi)}{c^{2}(\pi)} = \int_{-\infty}^{\infty}{t(x)e^{\pi t(x)}h(x)du(x)}\)</span></p>
+<p><span class="math">\(E_{\pi}(t(x)) = -\frac{c'(\pi)}{c^{2}(\pi)}\)</span></p>
+<p>You can differentiate as many time as you wish to get the moments.</p>
+<p><strong>Lemma.</strong></p>
+<p>Let <span class="math">\(\epsilon &gt; 0\)</span> is given, then for <span class="math">\(|h| &lt; \epsilon\)</span> <span class="math">\[|\frac{e^{ht} - 1}{h}| \leq 2k\{e^{\epsilon t} + e^{-\epsilon t}\}\]</span> when <span class="math">\(k = k_{\epsilon}\)</span> depends on <span class="math">\(\epsilon\)</span></p>
+<p><strong>Proof.</strong></p>
+<p>Let <span class="math">\(\phi(x) = e^{tx}\)</span>. By the mean value theorem, we have</p>
+<p><span class="math">\(\frac{e^{ht} -1}{h} \leq te^{t\xi_{h}}\)</span> when <span class="math">\(|\xi_{h}| &lt; |h|\)</span></p>
+<p>For <span class="math">\(|h| &lt; \epsilon\)</span>, <span class="math">\(|\frac{e^{ht} -1}{h}| \leq |t|\{e^{\xi t} + e^{-\xi t} \}\)</span>, Since <span class="math">\(\lim_{t \rightarrow \infty}{\frac{|t|}{e^{\epsilon t}}}  = 0\)</span>.</p>
+<p><span class="math">\(\exists k = k_{\epsilon}\)</span>, s.t., <span class="math">\(|t| &lt; ke^{\epsilon|t|}\)</span></p>
+<p>Hence <span class="math">\(|\frac{e^{ht} -1}{h}| \leq ke^{\epsilon |t|}\{e^{\xi t} + e^{-\xi t} \}\)</span>.</p>
+<p>For <span class="math">\(t &gt; 0\)</span>, <span class="math">\(e^{\epsilon t} \cdot \{e^{\xi t} + e^{-\xi t} \} = e^{2\epsilon t} + 1 \leq 2e^{2\epsilon t}\)</span></p>
+<p>For <span class="math">\(t &lt; 0\)</span>, <span class="math">\(e^{- \epsilon t} \cdot \{e^{\xi t} + e^{-\xi t} \} = e^{-2\epsilon t} + 1 \leq 2e^{-2\epsilon t}\)</span></p>
+<p><span class="math">\(\therefore |\frac{e^{ht} -1}{h}| \leq 2k\{ e^{2\epsilon t} + e^{-2\epsilon t}\}\)</span></p>
+</div>
+<div id="section-2" class="section level2">
+<h2>—————————————————————————</h2>
+<p><strong>Theorem.</strong></p>
+<p>Let <span class="math">\(\theta_{i} = \pi_{i}\)</span> <span class="math">\[w(\theta_{1}, \theta_{2}) = \int{\phi(x)e^{\theta_{1}t_{1}(x) + \theta_{2}t_{2}(x)}du(x)}\]</span> Assume the integral exists over the Natural Parameter Space <span class="math">\(\Theta\)</span>, which is a open convex set of <span class="math">\(\mathbb{R}^2\)</span>.</p>
+<p>Then <span class="math">\(\frac{\partial(w)}{\partial(\theta_1)}\)</span>, <span class="math">\(\frac{\partial(w)}{\partial(\theta_2)}\)</span> exists, and the derivative can be passed under the <span class="math">\(\int\)</span>, then we can take differentiate of any order under the <span class="math">\(\int\)</span>.</p>
 </div>
 
 

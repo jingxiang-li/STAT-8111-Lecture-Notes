@@ -8,3 +8,97 @@ output:
 ---
 
 ## Lecture Notes
+
+$f_{\pi}(x) = c(\pi)h(x)e^{[\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}]}$
+
+$\pi=(\pi_{1},\dots,\pi_{k}) \in \underline{\Pi}$
+
+$\underline{\Pi} = \{(\pi_{1},\dots,\pi_{k})~ \frac{1}{c(\pi)} = \int{h(x)e^{[\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}]}du(x)} < \infty \}$
+
+**Lemma.** $\underline{\Pi}$ is Convex
+
+**Proof.**
+
+$\pi = (\pi_{1},\dots,\pi_{k}) \in \underline{\Pi}$
+
+$\pi' = (\pi_{1}',\dots,\pi_{k}') \in \underline{\Pi}$
+
+$0 < \alpha < 1$, 
+
+Question: $\alpha\pi' + (1 - \alpha)\pi \in \underline{\Pi}$
+
+$$\int{h(x)e^{\sum_{i = 1}^{k}{(\alpha\pi_{i}' + (1 - \alpha)\pi_{i})t_{i}(x)}}du(x)}$$
+
+$$\int{h(x)e^{\sum_{i = 1}^{k}{\alpha(\pi_{i}' - \pi_{i})t_{i}(x)}} e^{\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}}du(x)}$$
+
+$$\frac{1}{c(\pi)}\cdot \int{\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}^{\alpha} \{ 1^{1-\alpha}c(\pi)h(x)e^{\sum_{i=1}^{k}{\pi_{i}t_{i}(x)}}\}du(x)}$$
+
+$$\frac{1}{c(\pi)}\cdot E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}^{\alpha} 1^{1-\alpha}$$
+
+$$\leq \frac{1}{c(\pi)}\cdot \{E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}\}^{\alpha}$$
+
+Note that $\{E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}\}$ depends only on $\pi'$. $\square$
+
+$\underline{\Pi}$ is a convex subset of $\mathbb{R}^k$. It's effective dimension may be less than $k$, so they may live in a hyperplane, suggesting that $\sum_{i=1}^{k}{\beta_{i}\pi_{i}} = C$
+
+In this case, we can eliminate a $\pi_{i}$, so we can assume $\underline{\Pi}$ is an open convex subset of $\mathbb{R}^{k}$.
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+**Example of Non-Exponential Families**
+
+$X \sim \mathrm{Uniform}(0, \theta)$
+
+$f_{\theta}(x) = \bigg\{
+\begin{array}{ll}
+\frac{1}{\theta} & for ~~ 0 < x < \theta\\
+0 & otherwise
+\end{array}$
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+$f_{\pi}(x) = c(\pi)e^{\pi t(x)}h(x)$
+
+$\frac{1}{c(\pi)} = \int_{-\infty}^{\infty}{e^{\pi t(x)}h(x)du(x)}$
+
+$-\frac{c'(\pi)}{c^{2}(\pi)} = \int_{-\infty}^{\infty}{t(x)e^{\pi t(x)}h(x)du(x)}$
+
+$E_{\pi}(t(x)) = -\frac{c'(\pi)}{c^{2}(\pi)}$
+
+You can differentiate as many time as you wish to get the moments.
+
+**Lemma.**
+
+Let $\epsilon > 0$ is given, then for $|h| < \epsilon$
+$$|\frac{e^{ht} - 1}{h}| \leq 2k\{e^{\epsilon t} + e^{-\epsilon t}\}$$
+when $k = k_{\epsilon}$ depends on $\epsilon$
+
+**Proof.**
+
+Let $\phi(x) = e^{tx}$. By the mean value theorem, we have 
+
+$\frac{e^{ht} -1}{h} \leq te^{t\xi_{h}}$ when $|\xi_{h}| < |h|$
+
+For $|h| < \epsilon$, $|\frac{e^{ht} -1}{h}| \leq |t|\{e^{\xi t} + e^{-\xi t} \}$, Since $\lim_{t \rightarrow \infty}{\frac{|t|}{e^{\epsilon t}}}  = 0$.
+
+$\exists k = k_{\epsilon}$, s.t., $|t| < ke^{\epsilon|t|}$
+
+Hence $|\frac{e^{ht} -1}{h}| \leq ke^{\epsilon |t|}\{e^{\xi t} + e^{-\xi t} \}$.
+
+For $t > 0$, $e^{\epsilon t} \cdot \{e^{\xi t} + e^{-\xi t} \} = e^{2\epsilon t} + 1 \leq 2e^{2\epsilon t}$
+
+For $t < 0$, $e^{- \epsilon t} \cdot \{e^{\xi t} + e^{-\xi t} \} = e^{-2\epsilon t} + 1 \leq 2e^{-2\epsilon t}$
+
+$\therefore |\frac{e^{ht} -1}{h}| \leq 2k\{ e^{2\epsilon t} + e^{-2\epsilon t}\}$
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+**Theorem.**
+
+Let $\theta_{i} = \pi_{i}$
+$$w(\theta_{1}, \theta_{2}) = \int{\phi(x)e^{\theta_{1}t_{1}(x) + \theta_{2}t_{2}(x)}du(x)}$$
+Assume the integral exists over the Natural Parameter Space $\Theta$, which is a open convex set of $\mathbb{R}^2$.
+
+Then $\frac{\partial(w)}{\partial(\theta_1)}$, $\frac{\partial(w)}{\partial(\theta_2)}$ exists, and the derivative can be passed under the $\int$, then we can take differentiate of any order under the $\int$.
