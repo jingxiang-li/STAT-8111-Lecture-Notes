@@ -39,7 +39,7 @@ $$\leq \frac{1}{c(\pi)}\cdot \{E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})
 
 Note that $\{E_{\pi}\{e^{\sum_{i = 1}^{k}{(\pi_{i}' - \pi_{i})t_{i}(x)}}\}\}$ depends only on $\pi'$. $\square$
 
-$\underline{\Pi}$ is a convex subset of $\mathbb{R}^k$. It's effective dimension may be less than $k$, so they may live in a hyperplane, suggesting that $\sum_{i=1}^{k}{\beta_{i}\pi_{i}} = C$
+$\underline{\Pi}$ is a convex subset of $\mathbb{R}^k$. It's effective dimension may be less than $k$, so they may live in a hyperplane, suggesting that $\sum_{i=1}^{k}{\beta_{i}\pi_{i}} = C$
 
 In this case, we can eliminate a $\pi_{i}$, so we can assume $\underline{\Pi}$ is an open convex subset of $\mathbb{R}^{k}$.
 
