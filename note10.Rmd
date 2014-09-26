@@ -77,7 +77,7 @@ when $k = k_{\epsilon}$ depends on $\epsilon$
 
 **Proof.**
 
-Let $\phi(x) = e^{tx}$. By the mean value theorem, we have 
+Let $\phi(x) = e^{tx}$. By the *mean value theorem*, we have 
 
 $\frac{e^{ht} -1}{h} \leq te^{t\xi_{h}}$ when $|\xi_{h}| < |h|$
 
