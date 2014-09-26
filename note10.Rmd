@@ -1,0 +1,10 @@
+---
+title: "STAT 8111 LECTURE NOTE 10"
+author: "Jingxiang Li"
+date: "09/25/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## Lecture Notes
