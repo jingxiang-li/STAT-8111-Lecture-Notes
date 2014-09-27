@@ -1,0 +1,93 @@
+---
+title: "STAT 8111 LECTURE NOTE 11"
+author: "Jingxiang Li"
+date: "09/26/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## Lecture Note
+
+$w(\theta_{1}, \theta_{2}) = \int{\phi(x)e^{\theta_{1}t_{1}(x) + \theta_{2}t_{2}(x)}du(x)} < \infty$
+
+$For (\theta_{1}, \theta_{2}) \in$ some open subset of $\mathbb{R}^2$
+
+We have proved the Lemma that, given $\epsilon > 0$, $\exists k = k_{\epsilon}$, s.t., 
+$|\frac{e^{ht} - 1}{h}| \leq 2k\{e^{2\epsilon t} + e^{-2\epsilon t}\}$
+
+Now we want to prove that the derivative can be passed into the integral, which is equivalent to prove the derivative of $\theta$ is finite.
+
+**Proof.**
+
+$$\frac{\partial w}{\partial \theta_{1}}\Big|_{\theta_{1} = \theta_{1}'} = \lim_{h \rightarrow 0}
+\frac{w(\theta_{1}' + h, \theta_{2}') - w(\theta_{1}', \theta_{2}')}{h}$$
+
+$$ = \lim_{h \rightarrow 0}\int{\phi(x)e^{\theta_{1}'t_{1}(x) + \theta_{2}'t_{2}(x)}\{\frac{e^{ht_{1}(x)} - 1}{h}  \}du(x)}$$
+
+Now we use the Lemma, so that 
+
+$$\frac{e^{ht_{1}(x)} - 1}{h} \leq 2k\{e^{2\epsilon t_{1}(x)} + e^{-2\epsilon t_{2}(x)}\}$$
+
+$$|\phi(x)e^{\theta_{1}'t_{1}(x) + \theta_{2}'t_{2}(x)}\{\frac{e^{ht_{1}(x)} - 1}{h}  \}| \leq
+[e^{(\theta_{1}' + 2\epsilon)t_{1}(x) + \theta_{2}'t_{2}(x)} + e^{(\theta_{1}' - 2\epsilon)t_{1}(x) + \theta_{2}'t_{2}(x)}]$$
+
+Which seems like two exponential family with parameter $(\theta_{1}' + 2\epsilon, \theta_{2}')$, and $(\theta_{1}' - 2\epsilon, \theta_{2}')$. And therefore the derivative will be finite. Q.E.D.
+
+===================================================================
+
+$$\frac{\partial w}{\partial \theta_{1}}\Big|_{\theta_{1} = \theta_{1}'} = \int{\phi(x)t_{1}(x)e^{\theta_{1}'t_{1}(x) + \theta_{2}'t_{2}(x)}du(x)}$$
+
+## Statistic Completeness
+
+$X$, $\{f_{\theta}^{X} \theta \in \Theta\}$, $t(x)$ is a statistic.
+
+**Def.** $t$ is complete for $\theta \in \Theta$ if for every real value function $g$ satisfying $E_{\theta}g(t) = 0,~~\forall \theta \in \Theta$ also satisfies $P_{\theta}(g(t) = 0) = 1,~~\forall \theta \in \Theta$
+
+Note that it is a property of family distributions, and suggesting that the only unbiased estimator of 0 is 0 itself.
+
+**e.g.**
+
+$X = (X_{1}, \dots, X_{m}) \sim$ i.i.d. $Bernoulli(\theta)$, $\theta \in (0, 1)$; Let $t(x) = \sum_{i = 1}^{m}(x_{i})$, we can prove that $t$ is a complete statistic.
+
+**proof.**
+
+Suppose for all $\theta$, 
+$$0 = E_{\theta}g(t) = \sum_{t = 0}^{m}g(t)\binom{m}{t} (\frac{\theta}{1-\theta})^{t}(1-\theta)^m$$
+Let $\rho= \frac{\theta}{1-\theta} \in (0, \infty)$, we have
+$$0 \propto \sum_{t = 0}^{m}{g(t)\binom{m}{t}\rho^{t}} $$
+Note that this is a polynomial function in $\rho$ of degree less or equal to $m$, therefore $g(t) = 0$. Q.E.D.
+
+**Notice.** Remove points from parameter space won't hurt sufficiency of a statistic, but may hurt the completeness of of statistic.
+
+========================================================================
+
+$X \in \mathbb{R}^{m}$, $f_{\theta}(x) = k(\theta)h(x)e^{\sum_{i = 1}^{n}\theta_{i}t_{i}(x)}$
+
+$x = (x_{1},\dots,x_{m})$, $\theta = (\theta_{1},\dots,\theta_{n})$, $t = (t_{1},\dots, t_{n})$, where $t$ is sufficient following the theorem of factorization, and $\theta \in \Theta$, which is the Natural Parameter Space, open and convex as proved.
+
+**Theorem.** If $\Theta$ contains a non-empty open subset in $\mathbb{R}^{n}$, then t is complete.
+
+Assume the origin is in $\Theta$, if not, you can define an origin as any point in $\Theta$.
+
+Suppose $t$ is not complete, then $\exists g$ s.t. $E_{\theta}g(t(x)) = 0$ for all $\theta \in \Theta$, and $E_{\theta}|g(t)| > 0$ for some $\theta$.
+
+$$0 = E_{\theta}g(t(x)) = k(\theta)\int{g(t)h(x)e^{\sum{\theta_{i}t_{i}}}du(x)} = k(\theta)\int_{y}{g(y)e^{\theta_{i}y_{i}}dv^{t}}$$
+
+where $y$ is set to remove the $h(x)$.
+
+Let $g^{+} = \max(g, 0)$, $g^{-} = -\min(g, 0)$, hence $g = g^{+} - g^{-}$, So that we have
+
+$$\int_{y}{e^{\theta_{i}y_{i}}g^{+}(y)dv^{t}} = \int_{y}{e^{\theta_{i}y_{i}}g^{-}(y)dv^{t}}, ~~ \forall \theta \in \Theta$$
+
+Let $\theta = (0,\dots,0)$, we have
+$$\int_{y}{g^{+}(y)dv^{t}} = \int_{y}{g^{-}(y)dv^{t}}$$
+Hence
+$$\frac{\int_{y}{e^{\theta_{i}y_{i}}g^{+}(y)dv^{t}}}{\int_{y}{g^{+}(y)dv^{t}}} = \frac{\int_{y}{e^{\theta_{i}y_{i}}g^{-}(y)dv^{t}}}{\int_{y}{g^{-}(y)dv^{t}}}$$
+Note that $\frac{g^{+}(y)} {\int_{y}{g^{+}(y)dv^{t}}}$ is a probability density function
+
+$$\Rightarrow \int_{y}{e^{\theta_{i}y_{i}}p^{+}(y)dv^{t}} = \int_{y}{e^{\theta_{i}y_{i}}p^{-}(y)dv^{t}}$$
+
+These are two Moment generating function of $g^{+}$ and $g^{-}$.
+
+They have the same moment generating function, they have to be the same!! if $g^{+} = g^{-}$ then $E_{\theta}|gt(x)| > 0$ will not be true. Q.E.D.
