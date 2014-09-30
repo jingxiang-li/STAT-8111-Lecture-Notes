@@ -1,0 +1,92 @@
+---
+title: "STAT 8111 LECTURE NOTE 12"
+author: "Jingxiang Li"
+date: "09/29/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## Lecture Note
+
+**eg.** 
+
+$X_{1},\dots,X_{m}$ i.i.d. Uniform $[0, \theta]$, when $\theta \in \Theta = (0, +\infty)$
+$$f_{\theta}(x_{1},\dots,x_{m}) = \Bigg\{ \begin{array}{ll}
+\frac{1}{\theta ^ {m}} & 0 \leq \min{x_{i}} \leq \max{x_{i}} \leq \theta\\
+0 & otherwise
+\end{array}$$
+$t(x) = \max{x_{i}}$ is a sufficient statistic.
+
+$\delta_{1}(x) = \frac{m+1}{m}\max{x_{i}}$, $\delta_{2}(x)=2\sum_{i=1}^{m}{x_{i}} / m = 2\bar{x}$
+
+$R(\theta, \delta_{1}) = \frac{\theta^{2}}{m(m+2)}$, $R(\theta, \delta_{2}) = \frac{\theta^{2}}{3m}$
+
+Note that for $m > 1$, $R(\theta, \delta_{1}) < R(\theta, \delta_{2})$
+
+**Theorem**
+
+Suppose $L(\theta, \cdot)$ is convex, estimating $\gamma(\theta)$ is some real function of $\theta$, $X: \{P_{\theta}^{X}~~\theta \in \Theta\}$. Suppose $t$ is sufficient for $P$, Let $\delta(x)$ an unbiased estimator s.t. $E_{\theta}(\delta(x)) < \infty ~~ \forall \theta$, Let $\delta_{0}(x) = E(\delta | t) = \phi(t(x))$ (Here we use the sufficiency of $t$, otherwise it should be $E(\delta | t, \theta)$). Then $R(\theta, \delta_{0}) \leq R(\theta, \delta) ~~ \forall \theta \in \Theta$
+
+If the loss function is strictly convex, then $R(\theta, \delta_{0}) < R(\theta, \delta)$ whenever $\delta_{0} \neq \delta$ and $L(\theta, \delta_{0}) < \infty$
+
+If $\delta$ is unbiased ($E_{\theta}(\delta) = \gamma(\theta)~~\forall \theta$) estimating $\gamma(\theta)$, then so is $\delta_{0}$. And if $t$ is complete for $P$, then $\delta_{0}$ is the unique best unbiased estimator of $\gamma(\theta)$. (UMVUE if using square loss)
+
+**Proof.**
+
+First Consider convex case first. Assume $R(\theta, \delta) < \infty$
+$$R(\theta, \delta) = E_{\theta}L(\theta, \delta(x)) = E_{\theta}\{E[L(\theta, \delta(x))| T=t]\}$$
+$$\geq E_{\theta}\{L(\theta, E(\delta(x)|T = t))\} = E_{\theta}\{L(\theta, \delta_{0}(x))  \} = R(\theta, \delta_{0})$$
+where $E_{\theta}\delta_{0} = \gamma(\theta)$
+
+Suppose $T$ is complete, Let $E_{\theta}\psi(x) = \gamma(\theta)~~\forall \theta \in \Theta$, $\psi_{0}(x) = E(\psi|t)$, $E_{\theta}(\psi_{0}) = \gamma(\theta)$
+
+Let $\delta_{0}(x) = \phi(t(x))$, $\psi_{0}(x) = \phi_{1}(t(x))$, $h(t) = \phi - \phi_{1}$.
+
+$E_{\theta}(h(t)) = E_{\theta}(\phi - \phi_{1}) = \gamma(\theta) - \gamma(\theta) = 0$
+
+By completeness, we have $\delta_{0}(x) = \psi_{0}(x)$
+
+**eg.**
+
+$X_{1},\dots,X_{m}$ i.i.d. $N(\mu, 1)$, $\mu \in \Theta = (-\infty \infty)$, we estimate $\gamma(\mu) = E_{\mu}(X_{i}^2) = \mu^{2} + 1$
+
+$\delta(x) = \frac{\sum_{i=1}^{m}{x_{i}^{2}}}{m}$, it's a moment estimation, and $\delta$ is unbiased.
+
+$t(x)$ = $x_{1}+\dots+x_{m}$ is sufficient for $\mu$ and is complete due to the property of exponential family.
+
+$\delta(x) = \frac{\sum{x_{i}^{2}}}{m} = \frac{\sum(x_{i} - \bar{x})^2}{m} + \bar{x} = \frac{\sum(x_{i} - \bar{x})^2}{m} + \frac{1}{m^2}t(x)^2$
+
+$$E(\delta(x)|t) = E(\frac{\sum(x_{i} - \bar{x})^2}{m}|t) + \frac{1}{m^2}t^2$$
+$$= E(\frac{\sum(x_{i} - \bar{x})^2}{m}|t) + \bar{x}^2$$
+$$= E(\frac{\sum(x_{i} - \bar{x})^2}{m}) + \bar{x}^2$$
+$$= \frac{m - 1}{m} + \bar{x}^2$$
+Note that $\frac{\sum(x_{i} - \bar{x})^2}{m}$ and $t$ are independent due to Normality.
+
+**eg.**
+
+$X_{1},\dots,X_{m}$ i.i.d. $Poisson(\lambda)$, $\lambda \in \Theta = (0, \infty)$
+
+Note that $\sum{x_{i}}$ is complete-sufficient for $\lambda$.
+
+$E(x_{i}) = Var(x_{i}) = \lambda$, so that we have two estimator, $\frac{\sum{x_{i}}}{m}$ and $\frac{\sum{(x_{i} - \bar{x})^2}}{m - 1}$. An the first one is the best.
+
+**eg.**
+
+$X_{1},\dots,X_{m}$ i.i.d. $Bernoulli(p)$, $p \in \Theta = [0, 1]$
+
+Q1: What forms of $\gamma(p)$ have an unbiased estimator? Let $\Gamma$ be the class of $\gamma$
+
+Q2: What is the best unbiased estimator?
+
+Let $Y = \sum{x_{i}} \sim Binomial(m, p)$, 
+
+$E_{p}\delta(Y) = \sum_{k = 0}^{\infty}{\delta(k)\binom{m}{k}p^{k}(1-p)^{m-k}}$
+
+So that $\Gamma$ should be the polynomial in $p$ of degree $\leq m$
+
+$$E_{p}(1) = 1$$
+$$E_{p}(\frac{y}{m}) = p$$
+$$E_{p}(\frac{y(y-1)}{m(m-1)}) = p^{2}$$
+$$\vdots$$
+$$E_{p}(\frac{y(y-1)\dots(y-m+1)}{m!}) = p^{m}$$
