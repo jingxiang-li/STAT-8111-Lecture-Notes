@@ -1,0 +1,74 @@
+---
+title: "STAT 8111 LECTURE NOTE 13"
+author: "Jingxiang Li"
+date: "10/02/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## LECTURE NOTE
+
+$X = (X_{1},\dots, X_{m})$ i.i.d. $Uniform(0, \theta)$, $\theta \in (0, +\infty) = \Theta$
+
+$t = \max(x_{i})$ is sufficient due to the factorization theorem.
+
+$E_{\theta}h(t) = 0 \forall \theta$
+
+$f_{\theta}(t) = \frac{m t^{m-1}}{\theta^{m}}~~ 0 < t < \theta$
+
+Now we can prove that $t$ is also complete.
+
+$\frac{m}{\theta^{m}}{\int_{0}^{\theta}{h(t)t^{m-1}dt}} = 0 \forall \theta > 0$
+
+Let $h(t)^{+} = \max(0, h(t))$, $h(t)^{-} = \max(0, -h(t))$, so that $h = h(t)^{+} + h(t)^{-}$
+
+So that $\int_{0}^{\theta}{h^{+}(t)t^{m-1}dt} = \int_{0}^{\theta}{h^{-}(t)t^{m-1}dt} \forall \theta \int \Theta$, suggesting that $h(t)t^{m-1} = 0$, so that $h(t) = 0$. So that $t$ is sufficient-complete statistic.
+
+Let $h(t(x))$ be an unbiased estimation of $\gamma(\theta)$, $E_{\theta}h(t(x)) = \int_{0}^{\theta}h(y)\frac{my^{m-1}}{\theta^{m}dy} = \gamma(\theta) ~~ \forall \theta$
+
+$\int_{0}^{\theta}{h(y)my^{m-1}dy} = \gamma(\theta)\theta^{m}$, so that $\gamma(\theta)\theta^{m}$ is differentiable.
+
+Now suppose $\gamma(\theta)\theta^{m}$ is differentiable a.e.
+
+$\gamma_{0}(\theta) = \gamma(\theta)\theta^{m}$, $h_{0} = \gamma_{0}'$, $h(y) = \frac{h_{0}(y)}{my^{m-1}}$
+
+$\int_{0}^{\theta}{h(y)\frac{my^{m-1}}{\theta^{m}}dy} = \frac{1}{\theta^{m}}\int_{0}^{\theta}{h_{0}(y)dy} = \frac{1}{\theta^{m}}\gamma(\theta)\theta^{m} = \gamma(\theta)$
+
+Then $\gamma(\theta)\theta^{m}$ is differentiable if and only if you can find a $h(y)$ that is unbiased of $\gamma(\theta)$
+
+**Theorem**
+
+$X = (X_{1}, \dots, X_{m})$ i.i.d. density function $f \in \Theta$, where $\Theta$ is the class of all densities s.t. $E_{f}|X_{i}| < \infty$, $E_{f}(X_{i}^2) < \infty$, Estimate $\gamma(f) = \int_{X}{f(x)dx}$, using square loss.
+
+**Proof.**
+
+Let $t(x)$ be Order Statistic, $t(x) = (X_{(1)},\dots,X_{(m)})$
+Note that $t$ is sufficient and t is complete.
+$\bar{x} = \frac{\sum{x_{i}}}{m}$ is a function of t and is unbiased, so that it is the best.
+
+**Theorem**
+
+$X = (X_{1},\dots,X_{m})$ i.i.d. $N(\mu, 1)$, where $\mu \in (-\infty, \infty) = \Theta$
+
+Let $t(x) = \sum{x_{i}}$, which is 1) sufficient 2) complete
+
+Let $s(x) = \sum{(x_{i} - \bar{x})^2}$ whose distribution does not depend on $\mu$
+
+Then $t(x)$ and $s(x)$ are independent.
+
+**Theorem**
+
+Suppose $t$ is complete-sufficient statistic, suppose $s$ is a statistic whose distribution does not depend on the parameter $\theta$, then $s$ and $t$ are independent, for $\theta \in \Theta$
+
+**Proof.**
+
+It's enough to show that $E_{\theta}(\phi(s(x))\psi(t(x))) = E_{\theta}\phi(s(x)) +E_{\theta}\psi(t(x))$
+$$= E_{\theta}(\phi(s(x))\psi(t(x)))$$
+$$= E_{\theta}\{E[\phi(s(x))\psi(t(x))|t ] \}$$
+$$= E_{\theta}\{\psi(t(x)) E(\phi(s(x)))|t  \}$$
+$$= E_{\theta}\{\psi(t(x)) g(t(x))\}$$
+
+$E_{\theta}(g(t(x))) = E_{\theta}(\phi(s(x))) =C$, since $s$ does not depend on $\theta$
+
+Since $t(x)$ is complete sufficient, and $g(t(x))$ and $C$ are both unbiased estimators for $C$, so that $P(g(t(x)) = C) = 1~~\forall \theta \in \Theta$
