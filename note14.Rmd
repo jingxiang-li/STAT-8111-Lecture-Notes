@@ -1,0 +1,130 @@
+---
+title: "STAT 8111 LECTURE NOTE 14"
+author: "Jingxiang Li"
+date: "10/03/2014"
+output:
+  html_document:
+    theme: readable
+---
+
+## LECTURE NOTE
+
+In the previous lecture, we prove the BASU theorem, Now we will give some examples.
+
+**eg.**
+
+$X_{1},\dots,X_{m}$ i.i.d. $Uniform[0,\theta]$, when $\theta \in (0, \infty) = \Theta$
+
+$t(x) = \max{x_{i}}$ is complete sufficient
+
+$s(x) = \frac{\bar{x}}{\max{x_{i}}}$ whose distribution not dependent on $\theta$, because let $y_{i} = \frac{x_{i}}{\theta} \sim Uniform[0,1]$, then $s(y) = s(x)$ not dependent on $\theta$.
+
+So that $t(x)$ and $s(x)$ are independent.
+
+**eg.**
+
+$X_{1},\dots,X_{m}$ i.i.d. $N(\mu, \sigma^{2})$
+
+$\Theta = (\mu, \sigma^{2}) \in (-\infty, +\infty) \times (0, +\infty)$
+
+$t(x) = (\sum{x_{i}}, \sum{x{i}^{2}})$ is complete-sufficient, then let $s^2 = \frac{\sum{(x_{i} - \bar{x})^2}}{m-1}$
+
+We want to estimate $\gamma(\mu, \sigma^{2}) = P(X_{i} \leq C) = \Phi(\frac{C-\mu}{\sigma})$
+
+Let $I[\cdot]$ be the indicator function
+
+$\delta(x) = I[x_{i} \leq C]$ is an unbiased estimator.
+
+$\delta_{0} = E[\delta|t]$ is the best unbiased.
+
+$E[\delta|t] = E(I(X_{i} \leq c) | t) = E(I[\frac{x_{i} - \bar{x}}{s} \leq \frac{c - \bar{x}}{s}]|t)$
+
+Call $\frac{x_{i} - \bar{x}}{s} = R(x)$, $\frac{C - \bar{x}}{s} = \nu_{c}(t)$
+
+$R(x)$ has the same distribution of $R(z)$ where $z_{i},\dots,z_{m} \sim N(0,1)$; so that $R(x)$ is independent of t.
+
+So that the distribution of $R(x)$ is independent of $t$ and does not depend on $\theta$
+
+Let $F$ be this distribution, so that $\delta_{0} = F(\nu_{c}(t))$
+
+H.A.D. Order Statistics Page 111, we know that $R(x)$ has the same distribution as $\frac{(m-1)V}{\sqrt{m(V^{2} - m - 2)}}$, where $V$ is a $t$ distribution with $n -2$ df. Let $G$ be this distribution function.
+
+Let $h(v) = \frac{(m-1)v}{\sqrt{m(v^{2} - m - 2)}}~~v \in (-\infty, +\infty)$
+
+We have $h'(v) > 0$ and $h^{-1}$ exists on its range $(-\frac{m-1}{\sqrt{m}}, +\frac{m-1}{\sqrt{m}})$
+
+$$\delta_{0}(x) = \begin{array}{lr}
+0 & \nu_{c}(t) < -\frac{m-1}{\sqrt{m}}\\
+\sigma h^{-1}(\nu_{c}(t)) & \nu_{c}(t) \in (-\frac{m-1}{\sqrt{m}}, \frac{m-1}{\sqrt{m}})\\
+1 & \nu_{c}(t) > \frac{m-1}{\sqrt{m}}
+\end{array}$$
+
+**Theorem.**
+Best unbiased estimator can be not admissible
+
+$X \sim N(\theta, 1)$, $\theta \in (-\infty, +\infty)$
+
+We want to estimate $\gamma(\theta) = \theta^{2}$, and $\delta(x) = x^{2} - 1$ is the best unbiased.
+
+If $x$ is close to 0, $\delta(x)$ is negative, so that we can define $$\delta_{1}(x) = \Big \{ \begin{aligned}
+&\delta(x)  &x^2 \geq 1\\
+&0 &x^{2} < 1
+\end{aligned}$$ Obviously better.
+
+If we require our estimator to be non-negative, there is **NO** unbiased estimator!!!
+
+**eg.**
+
+$W~~P=\{P_{\theta}^{W}: \theta \in \Theta \}$
+
+$T$ is complete-sufficient for $P$, $u$ is a statistic which is not sufficient. we want to estimate $\gamma(\theta)$ with square error loss, $\delta^{*}(t)$ to be the best unbiased of $\gamma(\theta)$, but we cannot use $\delta^{*}$, but can only use estimates that depend on u.
+
+**Theorem.**
+
+$\delta(\mu)$ is unbiased for $\gamma(\theta)$ $\iff$ $E(\delta(u)|t) = \delta^{*}(t)~~a.e.~P^{t}$
+
+**Proof.**
+
+$\Leftarrow$
+
+$E_{\theta}(\delta(u)) = E_{\theta}E(\delta(u)|t) = E(\delta^{*}(t)) = \gamma(\theta)$
+
+$\Leftarrow$
+
+$\psi(t) = E(\delta(u)|t)$
+
+the $\psi(t)$ is unbiased for $\gamma(\theta)$, so that $\psi(t) = \delta^{*}(t)$. Two unbiased estimators, and all function of $t$.
+
+**Theorem.**
+
+Let $\mathbb{T} =$ range of $t$
+
+Let $P^{u|t}$ be conditional distribution of $u$ given $t$.
+
+$P_{0} = \{P^{u|t}, t \in \mathbb{T} \}$
+
+$\delta(u)$ is unbiased for $\gamma(\theta)$ $\iff$ $\delta(u)$ is unbiased for estimating $\delta^{*}(t)$ in the $P_{0}$ model.
+
+**eg.**
+
+$W = (X, Y)$ where $X$ and $Y$ i.i.d. $Poisson(\theta)~~\theta \in (0, +\infty)$
+
+$T = X + Y$ is complete-sufficient
+
+$U = X$ want to estimate $\gamma(\theta) = P_{\theta}(t=0) = e^{-2\theta}$
+
+$\delta^{*}(t) = \Big\{ \begin{aligned}
+&1 &if &t = 0\\
+&0 &if &t > 0
+\end{aligned}$
+is best unbiased.
+
+It's so called RUBE, Ridiculous Unbiased Best Estimator.
+
+$$P(U=u|T=t) = P(X = u|X+Y = t) = \binom{t}{u}(\frac{1}{2})^{u}(\frac{1}{2})^{t-u} \sim \mathrm{Bernoulli}(t, \frac{1}{2})$$
+
+$$P_{0} = \{\mathrm{Bernoulli}(t, \frac{1}{2}), t = 0,1,2,\dots\}$$
+
+Claim $\delta_{0}(u) = (-1)^{u}$ is unbiased for estimating $\delta^{*}(t)$ in $\delta_{0}(t)$
+
+Since $E_{t}(\delta(u)) = \sum_{u = 0}^{t}{(-1)^{u}\binom{t}{u}(\frac{1}{2})^{u}(\frac{1}{2})^{t-u}} = 0$
